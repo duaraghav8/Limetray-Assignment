@@ -15,13 +15,17 @@
     <link href="../css/bootstrap.min.css" rel="stylesheet">
     <!-- Custom styles for this template -->
     <link href="../css/signin.css" rel="stylesheet">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
   </head>
 
   <body ng-app = "limetray">
 
     <div class="container">
 
-    Welcome <%= username %> <br />
+    Welcome <strong><%= username %></strong> <br />
     <a href = "/logout">Logout</a><br />
     <a href = "#/checkout">Proceed to Checkout</a> <br />
 
@@ -56,7 +60,18 @@
     <script type = "text/ng-template" id = "/product.html">
       <h1><kbd>{{heading}}</kbd></h1> <br />
       {{product.item}}
+      <br /><br />
+
+      <div class="form-group">
+      <label for="sel1">Qty</label>
+      <select class="form-control" id="sel1" style="width:70px;" ng-model = "itemQty">
+        <option selected="true">1</option>
+        <option>2</option>
+        <option>3</option>
+      </select>
+
       <br />
+      <div ng-click = "addToCart(product.item)"><a href = "">Add to Cart</a></div>
       <a href = "#/category">Back</a> <br />
     </script>
 

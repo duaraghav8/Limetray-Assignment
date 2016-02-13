@@ -66,7 +66,29 @@ app.controller ('categoryCtrl', ['$scope', '$window', 'product', 'category', 'ap
 	};
 }]);
 
-app.controller ('productCtrl', ['$scope', 'product', 'apiCon', function ($scope, product, apiCon) {
+app.controller ('productCtrl', ['$scope', 'product', 'cart', 'apiCon', function ($scope, product, cart, apiCon) {
 	$scope.product = product;
+	$scope.cart = cart;
 	$scope.heading = $scope.product.item.product;
+
+	$scope.addToCart = function (i) {
+		var item = null,
+			unique = true;
+
+		$scope.cart.forEach (function (item) {
+			if (item.name === i.name) {
+				console.log ('Error: Item already exists in cart');
+				unique = false;
+			}
+		});
+
+		if (!unique) {
+			return;
+		}
+		//////////////////////////////below line is assigning by reference, is making changes in the actual object!! BUGGGGG///////////////////////
+		item = i;
+		item.quantity = $scope.itemQty ? $scope.itemQty : 1;		//if qty is defined, set it to the number. Else default value 1
+		$scope.cart.push (item);
+		console.log ('Final Cart contents: ', $scope.cart);
+	};
 }]);
