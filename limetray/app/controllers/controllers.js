@@ -1,3 +1,5 @@
+var dummyData = require ('../data/dummyData');
+
 exports.loginGet = function (req, res) {
 	if (req.user) {
 		res.redirect ('/profile');
@@ -25,4 +27,16 @@ exports.profileGet = function (req, res) {
 exports.logoutGet = function (req, res) {
 	req.logout ();
 	res.redirect ('/');
+};
+
+///////////////////////////////////////////////////////////////////////////////////////
+//								API CONTROLLERS
+///////////////////////////////////////////////////////////////////////////////////////
+
+exports.categoryList = function (req, res) {
+	res.send (Object.keys (dummyData));
+};
+
+exports.category = function (req, res) {
+	res.send (dummyData [req.params.category]);
 };

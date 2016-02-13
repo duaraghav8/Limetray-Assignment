@@ -12,7 +12,15 @@ module.exports = function (app, passport) {
 		.get ('/logout', controllers.logoutGet);
 /*		.post ('/login', controllers.loginPost)
 		.get ('/signup', controllers.signupGet)
-		.post ('/signup', controllers.signupPost);
-*/
+		.post ('/signup', controllers.signupPost); */
+
+///////////////////////////////////////////////////////////////////////////////////////
+//								API ROUTES
+///////////////////////////////////////////////////////////////////////////////////////
+
+	app
+		.get ('/api/', controllers.categoryList)
+		.get ('/api/:category', controllers.category);
+		
 	return (app);	//for chainability
 };

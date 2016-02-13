@@ -2,4 +2,6 @@ I understand that there was no need for cryptography, but since the bcrypt modul
 
 No validations, I focused on ecommerce
 
+Each product's gotta have the quanTITY, Image accompanies product description
+
 NONE of the CSS code has been written by me.

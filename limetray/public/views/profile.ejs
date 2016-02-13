@@ -2,7 +2,11 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script> <!--Basic Angular-->
+    <script src="http://angular-ui.github.io/ui-router/release/angular-ui-router.min.js"></script> <!--UI Router-->
+    <script src = "http://cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.16/angular-resource.min.js"></script> <!--ngResource-->
+    <script src = "../js/angularApp.js"></script> <!--Angular App-->
+
     <meta name="description" content="Limetray Assignment - A Simple E Commerce site beased in Node+Angular+Boostrap">
     <meta name="author" content="Raghav Dua">
 
@@ -14,14 +18,32 @@
     <link href="../css/signin.css" rel="stylesheet">
   </head>
 
-  <body>
+  <body ng-app = "limetray">
 
     <div class="container">
 
-    Welcome <%= username %>
+    Welcome <%= username %> <br />
+    <a href = "/logout">Logout</a><br />
+    <a href = "">Proceed to Checkout</a> <br />
+
+    <center>
+      <ui-view></ui-view>
+    </center>
 
     </div> <!-- /container -->
 
+    <script type = "text/ng-template" id = "/categoryList.html">
+      <h3><kbd>Categories</kbd></h3> <br />
+      {{list}}
+    </script>
+
+    <script type = "text/ng-template" id = "/category.html">
+      <kbd>{{heading}}</kbd>
+    </script>
+
+    <script type = "text/ng-template" id = "/product.html">
+      <kbd>{{heading}}</kbd>
+    </script>
+
   </body>
 </html>
-
