@@ -58,5 +58,13 @@ module.exports = {
 			image: '',
 			price: 4999
 		}
+	],
+	accessories: [
+		{
+			product: 'Kindle Cover',
+			name: 'Kindle Leather Cover',
+			image: '',
+			price: 349
+		}
 	]
 };

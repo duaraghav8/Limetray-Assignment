@@ -34,7 +34,12 @@ exports.logoutGet = function (req, res) {
 ///////////////////////////////////////////////////////////////////////////////////////
 
 exports.categoryList = function (req, res) {
-	res.send (Object.keys (dummyData));
+	var keys = Object.keys (dummyData),
+		response = [];
+	keys.forEach (function (key) {
+		response.push ({data: key});
+	});
+	res.send (response);
 };
 
 exports.category = function (req, res) {

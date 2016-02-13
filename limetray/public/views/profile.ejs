@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -24,7 +23,7 @@
 
     Welcome <%= username %> <br />
     <a href = "/logout">Logout</a><br />
-    <a href = "">Proceed to Checkout</a> <br />
+    <a href = "#/checkout">Proceed to Checkout</a> <br />
 
     <center>
       <ui-view></ui-view>
@@ -33,16 +32,24 @@
     </div> <!-- /container -->
 
     <script type = "text/ng-template" id = "/categoryList.html">
-      <h3><kbd>Categories</kbd></h3> <br />
-      {{list}}
+      <h1><kbd>{{heading}}</kbd></h1> <br />
+      <div ng-repeat = "item in list">
+        <div ng-click = "setCategory(item['data'])">
+          <button type="button" class="btn btn-primary btn-md">{{item ['data']}}</button>
+        </div>
+        <br />
+      </div>
     </script>
 
     <script type = "text/ng-template" id = "/category.html">
-      <kbd>{{heading}}</kbd>
+      <h1><kbd>{{heading}}</kbd></h1> <br /><br />
+      {{list}}
+      <br />
+      <a href = "#/categoryList">Back</a> <br />
     </script>
 
     <script type = "text/ng-template" id = "/product.html">
-      <kbd>{{heading}}</kbd>
+      <h1><kbd>{{heading}}</kbd></h1> <br />
     </script>
 
   </body>
