@@ -43,13 +43,21 @@
 
     <script type = "text/ng-template" id = "/category.html">
       <h1><kbd>{{heading}}</kbd></h1> <br /><br />
-      {{list}}
+      <div ng-repeat = "item in list | orderBy: 'price'">
+        <div ng-click = "setProduct(item)">
+          <button type="button" class="btn btn-default">{{item.name}} (Rs.{{item.price}})</button>
+          <br /><br />
+        </div>
+      </div>
       <br />
       <a href = "#/categoryList">Back</a> <br />
     </script>
 
     <script type = "text/ng-template" id = "/product.html">
       <h1><kbd>{{heading}}</kbd></h1> <br />
+      {{product.item}}
+      <br />
+      <a href = "#/category">Back</a> <br />
     </script>
 
   </body>

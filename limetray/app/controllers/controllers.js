@@ -16,9 +16,7 @@ exports.isLoggedIn = function (req, res, next) {
 	res.redirect ('/login');
 };
 
-exports.profileGet = function (req, res) {
-	console.log ('New Log In:\n', req.user);
-	
+exports.profileGet = function (req, res) {	
 	res.render ('profile', {
 		username: req.user.local.email
 	});

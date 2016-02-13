@@ -32,6 +32,12 @@ app.factory ('category', function () {
 	};
 	return (category);
 });
+app.factory ('product', function () {
+	var product = {
+		item: null
+	};
+	return (product);
+});
 app.factory ('cart', function () {
 	var cart = [];
 	return (cart);
@@ -48,13 +54,19 @@ app.controller ('categoryListCtrl', ['$scope', '$window', 'category', 'apiCon', 
 	};
 }]);
 
-app.controller ('categoryCtrl', ['$scope', 'category', 'apiCon', function ($scope, category, apiCon) {
+app.controller ('categoryCtrl', ['$scope', '$window', 'product', 'category', 'apiCon', function ($scope, $window, product, category, apiCon) {
 	$scope.category = category;
+	$scope.product = product;
 	$scope.heading = $scope.category.name;
-	console.log ($scope.category.name);
 	$scope.list = apiCon.query ({category: $scope.category.name});
+
+	$scope.setProduct = function (p) {
+		$scope.product.item = p;
+		$window.location.href = "#/product";
+	};
 }]);
 
-app.controller ('productCtrl', ['$scope', 'apiCon', function ($scope, apiCon) {
-	$scope.heading = "Product"
+app.controller ('productCtrl', ['$scope', 'product', 'apiCon', function ($scope, product, apiCon) {
+	$scope.product = product;
+	$scope.heading = $scope.product.item.product;
 }]);
