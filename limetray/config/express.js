@@ -13,6 +13,7 @@ module.exports = function () {
 
 	app
 		.use (bodyParser.urlencoded ({extended: true}))
+		.use (bodyParser.json ())
 		.use (serveStatic (__dirname + '/../public'))
 		.use (cookieParser ())
 		.use (session ({

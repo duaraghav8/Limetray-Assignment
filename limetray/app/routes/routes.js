@@ -9,9 +9,10 @@ module.exports = function (app, passport) {
 			failureRedirect: '/login'
 		}))
 		.get ('/profile', controllers.isLoggedIn, controllers.profileGet)
-		.get ('/logout', controllers.logoutGet);
-/*		.post ('/login', controllers.loginPost)
-		.get ('/signup', controllers.signupGet)
+		.get ('/logout', controllers.logoutGet)
+		.post ('/billingAuth', controllers.billingAuth);
+		
+/*		.get ('/signup', controllers.signupGet)
 		.post ('/signup', controllers.signupPost); */
 
 ///////////////////////////////////////////////////////////////////////////////////////

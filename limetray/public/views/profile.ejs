@@ -6,6 +6,7 @@
     <script src = "http://cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.16/angular-resource.min.js"></script> <!--ngResource-->
     <script src = "../js/angularApp.js"></script> <!--Angular App-->
 
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="Limetray Assignment - A Simple E Commerce site beased in Node+Angular+Boostrap">
     <meta name="author" content="Raghav Dua">
 
@@ -16,9 +17,8 @@
     <!-- Custom styles for this template -->
     <link href="../css/signin.css" rel="stylesheet">
 
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
-  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
   </head>
 
   <body ng-app = "limetray">
@@ -71,8 +71,37 @@
       </select>
 
       <br />
+      {{done}} <br />
       <div ng-click = "addToCart(product.item)"><a href = "">Add to Cart</a></div>
       <a href = "#/category">Back</a> <br />
+    </script>
+
+    <script type = "text/ng-template" id = "/checkout.html">
+      <h1><kbd>{{heading}}</kbd></h1> <br />
+
+      <div ng-repeat = "item in cart">
+        {{item.name}} (Rs. {{item.price}}, Qty: {{item.quantity}}) - <strong>Total: {{item.price * item.quantity}}</strong>
+      </div>
+
+      <br /><br />
+      Sub Total: <strong>Rs. {{totals [0]}}</strong> <br />
+      Tax: <strong>{{tax}}</strong>% <br />
+      Grand Total: <strong>Rs. {{totals [1]}}</strong> <br /><br />
+
+      <pre>
+        Please Provide your email and password for verification before placing the order:<br />
+        <strong>Email:</strong> &nbsp;&nbsp;<input type = "email" name = "email" ng-model = "email" />
+        <strong>Password:</strong> <input type = "password" name = "password" ng-model = "password" /> 
+        {{err}}
+        <br />
+        <div ng-click="verifyUser()"><button type="button" class="btn btn-default btn-lg">Proceed to Billing</button></div>
+      </pre>
+    </script>
+
+    <script type = "text/ng-template" id = "/success.html">
+      <pre>
+        <strong>{{message}}</strong>
+      </pre>
     </script>
 
   </body>

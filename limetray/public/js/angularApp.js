@@ -18,6 +18,16 @@ app.config (['$stateProvider', '$urlRouterProvider', function ($stateProvider, $
 			url: '/product',
 			templateUrl: '/product.html',
 			controller: 'productCtrl'
+		})
+		.state ('checkout', {
+			url: '/checkout',
+			templateUrl: '/checkout.html',
+			controller: 'checkoutCtrl'
+		})
+		.state ('success', {
+			url: '/success',
+			templateUrl: '/success.html',
+			controller: 'successCtrl'
 		});
 
 	$urlRouterProvider.otherwise ('categoryList');
@@ -77,7 +87,7 @@ app.controller ('productCtrl', ['$scope', 'product', 'cart', 'apiCon', function 
 
 		$scope.cart.forEach (function (item) {
 			if (item.name === i.name) {
-				console.log ('Error: Item already exists in cart');
+				$scope.done = 'Error: Item already exists in cart';
 				unique = false;
 			}
 		});
@@ -85,10 +95,40 @@ app.controller ('productCtrl', ['$scope', 'product', 'cart', 'apiCon', function 
 		if (!unique) {
 			return;
 		}
-		//////////////////////////////below line is assigning by reference, is making changes in the actual object!! BUGGGGG///////////////////////
-		item = i;
+		item = JSON.parse (JSON.stringify (i));
 		item.quantity = $scope.itemQty ? $scope.itemQty : 1;		//if qty is defined, set it to the number. Else default value 1
 		$scope.cart.push (item);
-		console.log ('Final Cart contents: ', $scope.cart);
+		$scope.done = item.name + ' (Qty: ' + item.quantity.toString () + ') added to Cart';
 	};
+}]);
+
+app.controller ('checkoutCtrl', ['$scope', '$resource', '$window', 'cart', function ($scope, $resource, $window, cart) {
+	var totals = [0, 0],
+		billingAuth = $resource ('http://localhost:8080/billingAuth');
+		
+	$scope.cart = cart;
+	$scope.auth = new billingAuth ();
+	$scope.heading = 'Your final Order';
+	$scope.tax = 5;
+	$scope.cart.forEach (function (item) {
+		totals [0] += item.price * item.quantity;
+	});
+	totals [1] = totals [0] + (totals [0] * ($scope.tax / 100));
+	$scope.totals = totals;
+
+	$scope.verifyUser = function () {
+		$scope.auth.data = {email: $scope.email, password: $scope.password};
+		$scope.auth.$save (function (res) {
+			if (res.response === 'YES') {
+				$window.location.href = "#/success";
+			}
+			else {
+				$scope.err = "Error: Incorrect Credentials";
+			}
+		});
+	};
+}]);
+
+app.controller ('successCtrl', ['$scope', 'cart', function ($scope, cart) {
+	$scope.message = "Congratulations! Your order has successfully been placed :-)";
 }]);

@@ -16,7 +16,7 @@ exports.isLoggedIn = function (req, res, next) {
 	res.redirect ('/login');
 };
 
-exports.profileGet = function (req, res) {	
+exports.profileGet = function (req, res) {
 	res.render ('profile', {
 		username: req.user.local.email
 	});
@@ -25,6 +25,15 @@ exports.profileGet = function (req, res) {
 exports.logoutGet = function (req, res) {
 	req.logout ();
 	res.redirect ('/');
+};
+
+exports.billingAuth = function (req, res) {
+	if (req.body.data.email === req.user.local.email && req.body.data.password === req.user.local.password) {
+		res.json ({response: 'YES'});
+	}
+	else {
+		res.json ({response: 'NO'});
+	}
 };
 
 ///////////////////////////////////////////////////////////////////////////////////////
