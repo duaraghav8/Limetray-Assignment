@@ -27,6 +27,10 @@ exports.logoutGet = function (req, res) {
 	res.redirect ('/');
 };
 
+exports.signupGet = function (req, res) {
+	res.render ('signup');
+};
+
 exports.billingAuth = function (req, res) {
 	if (req.body.data.email === req.user.local.email && req.body.data.password === req.user.local.password) {
 		res.json ({response: 'YES'});
@@ -51,4 +55,16 @@ exports.categoryList = function (req, res) {
 
 exports.category = function (req, res) {
 	res.send (dummyData [req.params.category]);
+};
+
+exports.notFound = function (req, res) {
+	var message = 'Error 404: The Page you requested was not found on this server..';
+	if (req.accepts ('html')) {
+		res.render ('404', {
+			ErrorMessage: message
+		});
+	}
+	else {
+		res.send (message);
+	}
 };

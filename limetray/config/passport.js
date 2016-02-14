@@ -11,6 +11,9 @@ module.exports = function (passport) {
 		});
 	});
 
+///////////////////////////////////////////////////////////////////////
+//							User Login
+///////////////////////////////////////////////////////////////////////
 	passport.use ('userLogin', new LocalStrategy ({
 		usernameField: 'email',
 		passwordField: 'password',
@@ -30,4 +33,41 @@ module.exports = function (passport) {
 			return (done (null, user));
 		});
 	}));
+
+///////////////////////////////////////////////////////////////////////
+//							User Login
+///////////////////////////////////////////////////////////////////////
+	passport.use ('signup', new LocalStrategy ({
+		usernameField: 'email',
+		passwordField: 'password',
+		passReqToCallback: true
+	},
+	function (req, email, password, done) {
+		process.nextTick (function () {
+			User.findOne ({'local.email': email}, function (err, user) {
+				if (err) {
+					return (done (err));
+				}
+				if (user) {
+					//return false if the email being used to register already exists in database
+					return (done (null, false));
+				}
+				else {
+					var newUser = new User ();
+
+					newUser.local.email = email;
+					newUser.local.password = password;
+
+					newUser.save (function (err) {
+						if (err) {
+							throw (err);
+						}
+						return (done (null, newUser));
+					});
+				}
+			});
+		});
+	}));
 };
+
+//Beware of the CALLBACK HELL!

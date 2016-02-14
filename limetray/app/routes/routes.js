@@ -10,10 +10,14 @@ module.exports = function (app, passport) {
 		}))
 		.get ('/profile', controllers.isLoggedIn, controllers.profileGet)
 		.get ('/logout', controllers.logoutGet)
-		.post ('/billingAuth', controllers.billingAuth);
 		
-/*		.get ('/signup', controllers.signupGet)
-		.post ('/signup', controllers.signupPost); */
+		.get ('/signup', controllers.signupGet)
+		.post ('/signup', passport.authenticate ('signup', {
+			successRedirect: '/profile',
+			failureRedirect: '/signup'
+		}))
+
+		.post ('/billingAuth', controllers.billingAuth);
 
 ///////////////////////////////////////////////////////////////////////////////////////
 //								API ROUTES
@@ -22,6 +26,9 @@ module.exports = function (app, passport) {
 	app
 		.get ('/api/', controllers.categoryList)
 		.get ('/api/:category', controllers.category);
+
+//Requested Page was not found
+	app.get ('*', controllers.notFound);
 		
 	return (app);	//for chainability
 };

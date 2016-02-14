@@ -59,9 +59,14 @@
 
     <script type = "text/ng-template" id = "/product.html">
       <h1><kbd>{{heading}}</kbd></h1> <br />
-      {{product.item}}
-      <br /><br />
 
+      <pre>
+        <strong>{{product.item.name}}</strong>
+        Price: <strong>{{product.item.price}}</strong>
+        <img src = "{{product.item.image}}" style="max-width:250px; max-height:250px;" />
+      </pre>
+
+      <br /><br />
       <div class="form-group">
       <label for="sel1">Qty</label>
       <select class="form-control" id="sel1" style="width:70px;" ng-model = "itemQty">
