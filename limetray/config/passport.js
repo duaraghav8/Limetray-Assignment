@@ -1,5 +1,6 @@
 var LocalStrategy = require ('passport-local').Strategy,
-	User = require ('mongoose').model ('users');
+	User = require ('mongoose').model ('users'),
+	dataToRetrieve = {'local.email': 1, 'local.password': 1};
 
 module.exports = function (passport) {
 	passport.serializeUser (function (user, done) {
@@ -20,7 +21,7 @@ module.exports = function (passport) {
 		passReqToCallback: true
 	},
 	function (req, email, password, done) {
-		User.findOne ({'local.email': email}, function (err, user) {
+		User.findOne ({'local.email': email}, dataToRetrieve, function (err, user) {
 			if (err) {
 				return (done (err));
 			}
